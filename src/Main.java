@@ -2,6 +2,7 @@ import Figura.Circle;
 import Figura.Figura;
 import Homework.Animal.Animal;
 import Homework.Animal.Crocodal;
+import Homework.ArrayHW.ArrayHW;
 import Homework.Device.Device;
 import Homework.Device.Teapot;
 import Homework.Human.Human;
@@ -11,9 +12,11 @@ import Homework.Instrument.Trombone;
 import Homework.Money.Money;
 import Homework.Money.Product;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Class Human");
+    /*    System.out.println("Class Human");
         Human h = new Pilot("Piter", "Parker");
         System.out.println(h.getInfo());
 
@@ -36,6 +39,46 @@ public class Main {
 
         System.out.println("Class Trombone");
         MusicalInstrument m=new Trombone("Copper's Trombone", "Copper", "Big");
-        m.Desc();
+        m.Desc();*/
+        Scanner scanner = new Scanner(System.in);
+        ArrayHW<Integer> intArray = new ArrayHW<>(10);
+
+
+        intArray.fillRandom(1, 100);
+        System.out.println("Массив после заполнения случайными числами:");
+        intArray.printArray();
+
+
+        System.out.println("Максимальное значение: " + intArray.findMax());
+        System.out.println("Минимальное значение: " + intArray.findMin());
+
+
+        System.out.println("Среднее арифметическое: " + intArray.average());
+
+
+        intArray.sortAsc();
+        System.out.println("Отсортировано по возрастанию:");
+        intArray.printArray();
+
+
+        intArray.sortDesc();
+        System.out.println("Отсортировано по убыванию:");
+        intArray.printArray();
+
+
+        int key = 50;
+        int index = intArray.binarySearch(key);
+        if (index != -1) {
+            System.out.println("Значение " + key + " найдено по индексу " + index);
+        } else {
+            System.out.println("Значение " + key + " не найдено");
+        }
+
+
+        intArray.replace(0, 999);
+        System.out.println("После замены элемента по индексу 0:");
+        intArray.printArray();
+
+        scanner.close();
     }
 }
