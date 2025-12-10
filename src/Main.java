@@ -1,17 +1,7 @@
-import Figura.Circle;
-import Figura.Figura;
-import Homework.Animal.Animal;
-import Homework.Animal.Crocodal;
-import Homework.ArrayHW.ArrayHW;
-import Homework.Device.Device;
-import Homework.Device.Teapot;
-import Homework.Human.Human;
-import Homework.Human.Pilot;
-import Homework.Instrument.MusicalInstrument;
-import Homework.Instrument.Trombone;
-import Homework.Money.Money;
-import Homework.Money.Product;
+import Homework.Dictionary.Dictionary;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -40,7 +30,8 @@ public class Main {
         System.out.println("Class Trombone");
         MusicalInstrument m=new Trombone("Copper's Trombone", "Copper", "Big");
         m.Desc();*/
-        Scanner scanner = new Scanner(System.in);
+    /*
+      Scanner scanner = new Scanner(System.in);
         ArrayHW<Integer> intArray = new ArrayHW<>(10);
 
 
@@ -80,5 +71,11 @@ public class Main {
         intArray.printArray();
 
         scanner.close();
+        */
+
+        Dictionary dictionary = new Dictionary();
+        dictionary.createDictionary();
     }
+
+
 }
