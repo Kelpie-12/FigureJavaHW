@@ -1,4 +1,5 @@
 import Homework.Dictionary.Dictionary;
+import Homework.Lamda.Lamda;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,8 +74,14 @@ public class Main {
         scanner.close();
         */
 
-        Dictionary dictionary = new Dictionary();
-        dictionary.createDictionary();
+        //Dictionary dictionary = new Dictionary();
+        //dictionary.createDictionary();
+
+        Lamda task=new Lamda();
+        task.task1();
+        task.task2();
+        task.task3();
+        task.task4();
     }
 
 
