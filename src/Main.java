@@ -77,11 +77,15 @@ public class Main {
         //Dictionary dictionary = new Dictionary();
         //dictionary.createDictionary();
 
+        /*
         Lamda task=new Lamda();
         task.task1();
         task.task2();
         task.task3();
-        task.task4();
+        task.task4();*/
+
+
+
     }
 
 
