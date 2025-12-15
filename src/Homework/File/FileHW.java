@@ -165,6 +165,7 @@ public class FileHW {
         } catch (NumberFormatException e) {
             System.out.println("Ошибка преобразования числа: " + e.getMessage());
         }
+        scanner.close();
     }
 
     public void task4() {
@@ -225,6 +226,7 @@ public class FileHW {
         } catch (IOException e) {
             System.out.println("Ошибка при работе с файлом: " + e.getMessage());
         }
+        scanner.close();
     }
 
     public void task5(){
