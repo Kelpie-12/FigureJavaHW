@@ -1,6 +1,8 @@
 package Homework.Threads;
 
 import java.io.*;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -173,6 +175,88 @@ public class ThreadsHW {
         System.out.println("Количество простых чисел: " + primeCount);
         System.out.println("Количество обработанных факториалов: " + factorialProcessedCount.get());
         System.out.println("Программа завершена");
+    }
+
+
+    static AtomicInteger filesCopied = new AtomicInteger(0);
+    static AtomicInteger dirsCopied = new AtomicInteger(0);
+    static AtomicInteger errors = new AtomicInteger(0);
+
+    public void task3(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите путь к исходной директории:");
+        String sourcePathStr = scanner.nextLine();
+        System.out.println("Введите путь к новой директории:");
+        String targetPathStr = scanner.nextLine();
+
+        Path sourcePath = Paths.get(sourcePathStr);
+        Path targetPath = Paths.get(targetPathStr);
+
+        if (!Files.exists(sourcePath) || !Files.isDirectory(sourcePath)) {
+            System.out.println("Исходная директория не существует или не является директорией.");
+            return;
+        }
+
+
+        try {
+            Files.createDirectories(targetPath);
+        } catch (IOException e) {
+            System.out.println("Не удалось создать целевую директорию: " + e.getMessage());
+            return;
+        }
+
+
+        Thread copyThread = new Thread(() -> {
+            try {
+                Files.walkFileTree(sourcePath, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+                        Path relativePath = sourcePath.relativize(dir);
+                        Path targetDir = targetPath.resolve(relativePath);
+                        try {
+                            Files.createDirectories(targetDir);
+                            dirsCopied.incrementAndGet();
+                        } catch (IOException e) {
+                            System.out.println("Ошибка при создании папки: " + targetDir + " - " + e.getMessage());
+                            errors.incrementAndGet();
+                        }
+                        return FileVisitResult.CONTINUE;
+                    }
+
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+                        Path relativePath = sourcePath.relativize(file);
+                        Path targetFile = targetPath.resolve(relativePath);
+                        try {
+                            Files.copy(file, targetFile, StandardCopyOption.REPLACE_EXISTING);
+                            filesCopied.incrementAndGet();
+                        } catch (IOException e) {
+                            System.out.println("Ошибка при копировании файла: " + file + " - " + e.getMessage());
+                            errors.incrementAndGet();
+                        }
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
+            } catch (IOException e) {
+                System.out.println("Ошибка обхода директории: " + e.getMessage());
+            }
+        });
+
+        copyThread.start();
+
+        try {
+            copyThread.join();
+        } catch (InterruptedException e) {
+            System.out.println("Копирование было прервано");
+        }
+
+
+        System.out.println("Копирование завершено:");
+        System.out.println("Файлов скопировано: " + filesCopied.get());
+        System.out.println("Папок скопировано: " + dirsCopied.get());
+        System.out.println("Ошибок: " + errors.get());
+
+        scanner.close();
     }
 
 

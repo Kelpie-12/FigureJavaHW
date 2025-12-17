@@ -1,3 +1,4 @@
+import Classwork.Streems;
 import Homework.Dictionary.Dictionary;
 import Homework.Lamda.Lamda;
 
@@ -84,7 +85,8 @@ public class Main {
         task.task3();
         task.task4();*/
 
-
+        Streems s=new Streems();
+      //  s.task1();
 
     }
 
